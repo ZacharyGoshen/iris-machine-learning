@@ -9,8 +9,8 @@ from sklearn.model_selection import train_test_split
 import tensorflow as tf
 
 # Read in the training and test sets
-train_df = pd.read_csv("./iris_train.txt", sep = ",")
-test_df = pd.read_csv("./iris_test.txt", sep = ",")
+train_df = pd.read_csv("./../data/iris_train.txt", sep = ",")
+test_df = pd.read_csv("./../data/iris_test.txt", sep = ",")
 
 # Split the train data into groups seperated by label
 train_setosa = train_df.loc[train_df["is_setosa"] == 1.0]
@@ -52,8 +52,8 @@ b = tf.Variable(0.0, name = "b") # bias
 # Define hyperparameters of model
 learning_rate_setosa = 0.1
 learning_rate_versicolor = 0.1
-learning_rate_virginica = 0.1
-num_epochs = 50
+learning_rate_virginica = 0.05
+num_epochs = 100
 
 # The linear layer of the model
 z = (w1 * x1) + (w2 * x2) + (w3 * x3) + (w4 * x4) + b
@@ -102,8 +102,8 @@ def train_model(labels, learning_rate):
 
 			# Display the results every 10 epochs
 			if (epoch + 1) % 10 == 0:
-				print("Epoch: ", (epoch + 1), "loss = ", l, " w1 = ", sess.run(w1),
-				 " w2 = ", sess.run(w2), " w3 = ", sess.run(w3), " w4 = ", sess.run(w4), " b = ", sess.run(b))
+				print("Epoch: %d loss = %5.4f w1 = %5.4f w2 = %5.4f w3 = %5.4f w4 = %5.4f b  = %5.4f" % 
+					((epoch + 1), l, sess.run(w1), sess.run(w2), sess.run(w3), sess.run(w4), sess.run(b)))
 
 		# Store necessary values to be used outside of the session
 		weight1 = sess.run(w1)
@@ -134,7 +134,7 @@ for index, sample in test_df.iterrows():
 	versicolor_prob = evaluate_probability(versicolor_model, sample)
 	virginica_prob = evaluate_probability(virginica_model, sample)
 
-	print("setosa: ", setosa_prob, "versicolor: ", versicolor_prob, "virginica: ", virginica_prob)
+	print("setosa: %3.2f versicolor: %3.2f virginica: %3.2f" % (setosa_prob, versicolor_prob, virginica_prob))
 
 	# Decide what species the sample using the highest probability
 	if (setosa_prob > versicolor_prob) and (setosa_prob > virginica_prob):
@@ -144,11 +144,10 @@ for index, sample in test_df.iterrows():
 	else:
 		test_df.at[index, "predicted_class"] = "Iris-virginica"
 
+# Mark if prediction was correct
 test_df["prediction_correct"] = (test_df["class"] == test_df["predicted_class"])
 
-# with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-#     print(test_df)
-
+# Calculate the accuracy of the predictions
 accuracy = 0.0
 for val in test_df["prediction_correct"]:
 	if val:
@@ -156,4 +155,4 @@ for val in test_df["prediction_correct"]:
 accuracy /= len(test_df)
 accuracy *= 100.0
 
-print("Model predicts species with", accuracy, "% accuracy")
+print("Model predicts species with %4.2f%% accuracy" % accuracy)
