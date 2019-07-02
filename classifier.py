@@ -1,5 +1,7 @@
 import math
 
+import matplotlib as mpl
+import matplotlib.lines as mlines
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
@@ -19,6 +21,11 @@ iris_df["predicted_class"] = "No prediction"
 
 # Split data into training and test sets
 train_df, test_df = train_test_split(iris_df, test_size = 0.2)
+
+# Split the train data into groups seperated by label
+train_setosa = train_df.loc[train_df["is_setosa"] == 1.0]
+train_versicolor = train_df.loc[train_df["is_versicolor"] == 1.0]
+train_virginica = train_df.loc[train_df["is_virginica"] == 1.0]
 
 # Extract features and labels of training data set as NumPy arrays
 sepal_lengths_train = np.array(train_df["sepal_length"])
@@ -54,9 +61,9 @@ b = tf.Variable(0.0, name = "b") # bias
 
 # Define hyperparameters of model
 learning_rate_setosa = 0.1
-learning_rate_versicolor = 0.35
-learning_rate_virginica = 0.15
-num_epochs = 100
+learning_rate_versicolor = 0.1
+learning_rate_virginica = 0.1
+num_epochs = 50
 
 # The linear layer of the model
 z = (w1 * x1) + (w2 * x2) + (w3 * x3) + (w4 * x4) + b
@@ -137,18 +144,20 @@ for index, sample in test_df.iterrows():
 	versicolor_prob = evaluate_probability(versicolor_model, sample)
 	virginica_prob = evaluate_probability(virginica_model, sample)
 
+	print("setosa: ", setosa_prob, "versicolor: ", versicolor_prob, "virginica: ", virginica_prob)
+
 	# Decide what species the sample using the highest probability
 	if (setosa_prob > versicolor_prob) and (setosa_prob > virginica_prob):
-		test_df.set_value(index, "predicted_class", "Iris-setosa")
+		test_df.at[index, "predicted_class"] = "Iris-setosa"
 	elif versicolor_prob > virginica_prob:
-		test_df.set_value(index, "predicted_class", "Iris-versicolor")
+		test_df.at[index, "predicted_class"] = "Iris-versicolor"
 	else:
-		test_df.set_value(index, "predicted_class", "Iris-virginica")
+		test_df.at[index, "predicted_class"] = "Iris-virginica"
 
 test_df["prediction_correct"] = (test_df["class"] == test_df["predicted_class"])
 
-with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-    print(test_df)
+# with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+#     print(test_df)
 
 accuracy = 0.0
 for val in test_df["prediction_correct"]:
