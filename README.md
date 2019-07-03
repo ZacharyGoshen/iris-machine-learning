@@ -22,3 +22,5 @@ The challenge lies in differentiating between the Versicolor and Virginica speci
 ## Building the Model
 
 The model I have chosen to use for this data is a logistic regression model. Logistic regression is a good choice for this problem since we are using multiple continuous variables to try and predict a categorical outcome. This model should have no trouble classifying Setosa samples and should be able to classify the other two species with fairly high accuaracy.
+
+Before building the model, we must split the data into training
