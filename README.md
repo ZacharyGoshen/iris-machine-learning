@@ -16,3 +16,4 @@ The goal of this project is to train a model that is capable of predicting an un
 ![Virginica Summary Data](/images/virginica_data.png)
 
 Looking at the data, we can see that although there are three visible clusters, the Setosa cluster is far more isolated than Versicolor or Virginica. We can easily seperate the Setosa samples by using either of the petal features. For example, the maximum petal length for a Setosa is 1.9 cm while the minimum lengths for Versicolor and Virginica are 3 cm and 4.5 cm respectively. A decision tree with a single node could classify a sample as *"Setosa"* or *"Not Setosa"* with 100% probability.
+
