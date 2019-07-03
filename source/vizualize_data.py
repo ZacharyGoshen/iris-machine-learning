@@ -9,18 +9,17 @@ from sklearn.model_selection import train_test_split
 # Read in the Iris data
 iris_df = pd.read_csv("./../data/iris.txt", sep = ",")
 
-# Create additional features that report whether a sample belongs to each species
-iris_df['is_setosa'] = (iris_df['class'] == "Iris-setosa").astype(float)
-iris_df['is_versicolor'] = (iris_df['class'] == "Iris-versicolor").astype(float)
-iris_df['is_virginica'] = (iris_df['class'] == "Iris-virginica").astype(float)
-
-# Create a feature for our future predictions
-iris_df["predicted_class"] = "No prediction"
+# Format floats to display two decimal places
+pd.options.display.float_format = '{:,.2f}'.format
 
 # Split the data into groups seperated by label
-setosa = iris_df.loc[iris_df["is_setosa"] == 1.0]
-versicolor = iris_df.loc[iris_df["is_versicolor"] == 1.0]
-virginica = iris_df.loc[iris_df["is_virginica"] == 1.0]
+setosa = iris_df.loc[iris_df["class"] == "Iris-setosa"]
+versicolor = iris_df.loc[iris_df["class"] == "Iris-versicolor"]
+virginica = iris_df.loc[iris_df["class"] == "Iris-virginica"]
+
+setosa.describe()
+versicolor.describe()
+virginica.describe()
 
 # Create a 4 x 4 figure of subplots for each feature pair
 fig, ax = plt.subplots(4, 4, sharex = "col", sharey = "row")
