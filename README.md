@@ -1,2 +1,3 @@
-# Iris Data Set Machine Learning
-Uses machine learning to create a model that can classify three related species of Iris flowers
+# Iris Flower Species Classification using Logistic Regression
+
+The Iris flower data set is a multivariate data set introduced by British statistician Ronald Fisher in 1936. The data set consists of 50 samples from each of three different species: Iris-Setosa, Iris-Versicolor, and Iris-Virginica. Four features were measured from each sample: the length and width of the petal and sepal lengths.
