@@ -14,3 +14,5 @@ The goal of this project is to train a model that is capable of predicting an un
 
 ## Iris-Virginica
 ![Virginica Summary Data](/images/virginica_data.png)
+
+Looking at the data, we can see that although there are three visible clusters, the Setosa cluster is far more isolated than Versicolor or Virginica. We can easily seperate the Setosa samples by using either of the petal features. For example, the maximum petal length for a Setosa is
