@@ -23,4 +23,4 @@ The challenge lies in differentiating between the Versicolor and Virginica speci
 
 The model I have chosen to use for this data is a logistic regression model. Logistic regression is a good choice for this problem since we are using multiple continuous variables to try and predict a categorical outcome. This model should have no trouble classifying Setosa samples and should be able to classify the other two species with fairly high accuaracy.
 
-Before building the model, we must split the data into training
+Before building the model, we must split the data into training and test sets. *preprocess_data.py* reads in the entire data set from *iris.txt* and randomly splits the data into a training set (80%) and a test set (20%), then writes the results into *iris_train.txt* and *iris_test.txt*. This code should not be run more than once to avoid mixing the training data with the test data.
